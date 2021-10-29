@@ -6,27 +6,29 @@ import BooksGrid from './BooksGrid'
 class SearchBar extends Component {
   state = {
     searchTerm: '',
-    booksFound: [ { name: 'uno'}]
+    booksFound: []
   }
 
   handleChange = event => {
     const { value } = event.target
-    const searchTerm = this.state.searchTerm
 
     this.setState(() => ({
       searchTerm: value
     }))
 
-    if (searchTerm.length > 1) {
-      searchAPI.search(searchTerm)
+    if (value.length > 2) {
+      searchAPI.search(value)
         .then(res=> {
-          console.log(res)
+          this.setState((currState) => ({
+            ...currState,
+            booksFound: res
+          }))
         })
     }
   }
 
   render() {
-    const { searchTerm } = this.state
+    const { searchTerm, booksFound } = this.state
 
     return (
       <div className="search-books">
@@ -53,7 +55,7 @@ class SearchBar extends Component {
         </div>
 
         <div className="search-books-results">
-          { this.state.booksFound.length > 0 && <BooksGrid />}
+          { this.state.booksFound.length > 0 && <BooksGrid books={booksFound} />}
         </div>
       </div>
     )
