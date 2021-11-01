@@ -17,7 +17,7 @@ class SearchBar extends Component {
       if (value.length > 2 && value === this.state.searchTerm) {
         this.fetchBooks(value)
       }
-    }, 1000)
+    }, 600)
 
     this.setState(() => ({
       searchTerm: value
