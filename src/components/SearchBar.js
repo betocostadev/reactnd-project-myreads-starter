@@ -1,21 +1,17 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import * as searchAPI from '../services/BooksAPI'
 
-import BooksGrid from './BooksGrid'
 class SearchBar extends Component {
   state = {
-    searchTerm: '',
-    loading: false,
-    booksFound: []
+    searchTerm: ''
   }
 
   handleChange = event => {
     const { value } = event.target
 
     setTimeout(() => {
-      if (value.length > 2 && value === this.state.searchTerm) {
-        this.fetchBooks(value)
+      if (value.length > 0 && value === this.state.searchTerm) {
+        this.props.onSearch(this.state.searchTerm)
       }
     }, 600)
 
@@ -24,21 +20,8 @@ class SearchBar extends Component {
     }))
   }
 
-  fetchBooks = term => {
-    this.setState(() => ({ loading: true}))
-
-    searchAPI.search(term)
-      .then(res=> {
-        this.setState((currState) => ({
-          ...currState,
-          booksFound: res,
-          loading: false
-        }))
-      })
-  }
-
   render() {
-    const { searchTerm, loading, booksFound } = this.state
+    const { searchTerm } = this.state
 
     return (
       <div className="search-books">
@@ -62,17 +45,6 @@ class SearchBar extends Component {
               onChange={this.handleChange}
             />
           </div>
-        </div>
-
-        <div className="search-books-results">
-          { !loading && searchTerm.length < 2
-            ? null
-            : loading
-            ? <p className="search-books-results-warning">Please wait, searching for books</p>
-            : !loading && !booksFound.error && searchTerm.length > 1
-            ? <BooksGrid books={booksFound} />
-            : <p className="search-books-results-warning">Sorry, no results. Please try another search term.</p>
-          }
         </div>
       </div>
     )
