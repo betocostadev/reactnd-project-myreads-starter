@@ -122,6 +122,13 @@ button:active {
   padding: 80px 10px 20px;
 }
 
+.search-books-results-warning {
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  font-size: 1.2rem;
+}
+
 /* books grid */
 
 .books-grid {
