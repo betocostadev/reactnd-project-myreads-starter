@@ -1,13 +1,13 @@
 import React from 'react'
 
-const Book = ({ book }) => {
+const Book = ({ book, onChangeShelf }) => {
   const smallThumbnail = book && book.imageLinks
     ? book.imageLinks.smallThumbnail
     : ''
 
   const handleChange = event => {
-    console.log(event.target.value)
-    console.log(book)
+    event.preventDefault()
+    onChangeShelf(event.target.value, book)
   }
 
   return (

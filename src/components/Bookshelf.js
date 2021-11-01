@@ -10,7 +10,7 @@ class Bookshelf extends Component {
           this.props.books && this.props.books.length > 0 
           ?
             <div className="bookshelf-books">
-              <BooksGrid books={this.props.books} />
+              <BooksGrid books={this.props.books} onChangeShelf={this.props.onChangeShelf} />
             </div>
           : 
             <p>There are no books in this list yet.</p>
