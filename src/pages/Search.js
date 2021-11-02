@@ -7,7 +7,8 @@ import BooksGrid from '../components/BooksGrid'
 class Search extends Component {
   state = {
     loading: false,
-    booksFound: []
+    booksFound: [],
+    hasSearchTerm: false
   }
 
   handleSearch = term => {
@@ -27,27 +28,29 @@ class Search extends Component {
               })
             : []
           this.setState(() => ({
+            loading: false,
             booksFound: responseItems,
-            loading: false
+            hasSearchTerm: term && term.length > 0 ? true : false
           }))
-          
+
         } catch (error) {
           this.setState(() => ({
             booksFound: [],
-            loading: false
+            loading: false,
+            hasSearchTerm: term && term.length > 0 ? true : false
           }))
         }
     })
   }
 
   render() {
-    const { loading, booksFound} = this.state
+    const { loading, booksFound, hasSearchTerm } = this.state
 
     return (
       <div className="search-books">
         <SearchBar onSearch={this.handleSearch} />
         <div className="search-books-results">
-          { !loading && booksFound && booksFound.error
+          { !loading && booksFound && !booksFound.length && hasSearchTerm
             ? <p className="search-books-results-warning">Sorry, no results. Please try another search term.</p>
             : loading
             ? <p className="search-books-results-warning">Please wait, searching for books</p>
