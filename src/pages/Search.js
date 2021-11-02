@@ -14,12 +14,23 @@ class Search extends Component {
     this.setState(() => ({ loading: true}))
 
     booksAPI.search(term)
-      .then(res=> {
+      .then(res => {
         try {
+          const responseItems = !res.error 
+            ? res.map(book => {
+              return {
+                ...book,
+                  shelf: this.props.booksInShelves.find(b => b.id === book.id) 
+                    ? this.props.booksInShelves.find(b => b.id === book.id).shelf 
+                    :'none'
+                }
+              })
+            : []
           this.setState(() => ({
-            booksFound: res,
+            booksFound: responseItems,
             loading: false
           }))
+          
         } catch (error) {
           this.setState(() => ({
             booksFound: [],

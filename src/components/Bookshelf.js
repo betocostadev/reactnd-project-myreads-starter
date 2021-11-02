@@ -5,7 +5,7 @@ class Bookshelf extends Component {
   render() {
     return(
       <div className="bookshelf">
-        <h2 className="bookshelf-title">{this.props.section}</h2>
+        <h2 className="bookshelf-title">{this.props.shelf}</h2>
         {
           this.props.books && this.props.books.length > 0 
           ?

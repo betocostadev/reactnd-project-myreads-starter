@@ -1,7 +1,6 @@
 import React from 'react'
 import { Route, Switch } from 'react-router-dom'
 import * as BooksAPI from './services/BooksAPI'
-// import * as BooksAPI from './BooksAPI'
 import './App.css'
 
 import Home from './pages/Home'
@@ -49,6 +48,8 @@ class BooksApp extends React.Component {
       this.setState(() => ({
         bookShelves: [ ...updatedState ]
       }))
+
+      BooksAPI.update(book, targetShelf)
     }
   }
 
@@ -71,6 +72,8 @@ class BooksApp extends React.Component {
   
 
   render() {
+    const booksInShelves = this.state.bookShelves.flatMap(shelf => shelf.books)
+
     return (
       <div className="app">
         <Switch>
@@ -78,7 +81,7 @@ class BooksApp extends React.Component {
             <Home bookShelves={this.state.bookShelves} onChangeShelf={this.changeBookShelf} />
           </Route>
           <Route path="/search">
-            <Search onChangeShelf={this.changeBookShelf} />
+            <Search onChangeShelf={this.changeBookShelf} booksInShelves={booksInShelves} />
           </Route>
         </Switch>
       </div>

@@ -7,6 +7,7 @@ const Book = ({ book, onChangeShelf }) => {
 
   const handleChange = event => {
     event.preventDefault()
+    book.shelf = event.target.value
     onChangeShelf(event.target.value, book)
   }
 
@@ -16,7 +17,7 @@ const Book = ({ book, onChangeShelf }) => {
         <div className="book-top">
           <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${smallThumbnail})` }}></div>
           <div className="book-shelf-changer">
-            <select value="none" onChange={handleChange}>
+            <select value={book.shelf} onChange={handleChange}>
               <option value="move" disabled>Move to...</option>
               <option value="currentlyReading">Currently Reading</option>
               <option value="wantToRead">Want to Read</option>
