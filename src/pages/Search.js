@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import * as searchAPI from '../services/BooksAPI'
+import * as booksAPI from '../services/BooksAPI'
 
 import SearchBar from '../components/SearchBar'
 import BooksGrid from '../components/BooksGrid'
@@ -13,12 +13,19 @@ class Search extends Component {
   handleSearch = term => {
     this.setState(() => ({ loading: true}))
 
-    searchAPI.search(term)
+    booksAPI.search(term)
       .then(res=> {
-        this.setState(() => ({
-          booksFound: res,
-          loading: false
-      }))
+        try {
+          this.setState(() => ({
+            booksFound: res,
+            loading: false
+          }))
+        } catch (error) {
+          this.setState(() => ({
+            booksFound: [],
+            loading: false
+          }))
+        }
     })
   }
 
@@ -29,12 +36,12 @@ class Search extends Component {
       <div className="search-books">
         <SearchBar onSearch={this.handleSearch} />
         <div className="search-books-results">
-          { !loading && booksFound.error
+          { !loading && booksFound && booksFound.error
             ? <p className="search-books-results-warning">Sorry, no results. Please try another search term.</p>
             : loading
             ? <p className="search-books-results-warning">Please wait, searching for books</p>
             : !loading && booksFound && !booksFound.error
-            ? <BooksGrid books={booksFound} />
+            ? <BooksGrid books={booksFound} onChangeShelf={this.props.onChangeShelf} />
             : null
           }
         </div>

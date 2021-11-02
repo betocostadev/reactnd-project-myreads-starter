@@ -11,7 +11,7 @@ const Home = ({ bookShelves, onChangeShelf }) => {
       <div className="list-books-content">
         {
           bookShelves.map((shelf) => (
-            <Bookshelf key={shelf.section} section={shelf.label} books={shelf.books} onChangeShelf={onChangeShelf} />
+            <Bookshelf key={shelf.shelf} shelf={shelf.label} books={shelf.books} onChangeShelf={onChangeShelf} />
           ))
         }
       </div>

@@ -10,7 +10,7 @@ class SearchBar extends Component {
     const { value } = event.target
 
     setTimeout(() => {
-      if (value.length > 0 && value === this.state.searchTerm) {
+      if (value === this.state.searchTerm) {
         this.props.onSearch(this.state.searchTerm)
       }
     }, 600)
