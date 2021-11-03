@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 const Book = ({ book, onChangeShelf }) => {
   const smallThumbnail = book && book.imageLinks
@@ -35,6 +36,11 @@ const Book = ({ book, onChangeShelf }) => {
       </div>
     </li>
   )
+}
+
+Book.propTypes = {
+  book: PropTypes.object.isRequired,
+  onChangeShelf: PropTypes.func.isRequired
 }
 
 export default Book

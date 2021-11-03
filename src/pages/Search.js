@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Proptypes from 'prop-types'
 import * as booksAPI from '../services/BooksAPI'
 
 import SearchBar from '../components/SearchBar'
@@ -62,6 +63,11 @@ class Search extends Component {
       </div>            
     )
   }
+}
+
+Search.propTypes = {
+  booksInShelves: Proptypes.arrayOf(Proptypes.object).isRequired,
+  onChangeShelf: Proptypes.func.isRequired
 }
 
 export default Search
